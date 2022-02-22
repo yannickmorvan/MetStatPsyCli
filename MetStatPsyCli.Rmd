@@ -1,0 +1,790 @@
+---
+title: "CoursMetStatPsy"
+author: "Morvan, Y"
+date: "01/02/2022"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+## Références et liens utiles
+
+Ce document à été préparé à l'aide de différentes ressources (tutoriels en ligne, vidéos, cours, articles, ouvrages), merci à toutes celles et ceux qui partagent leurs ressources
+
+### Tutoriels
+
+- Tutorial EFA CFA
+
+https://cran.r-project.org/web/packages/parameters/vignettes/efa_cfa.html
+
+- And with nice tables
+
+https://cran.r-project.org/web/packages/semTable/vignettes/semtable.pdf
+
+https://shiny.rit.albany.edu/stat/cfa1test/lavaan.html#obtain-coefficients
+
+https://rpubs.com/mkearney/103040
+
+Of course lavaan Tutorials : 
+https://lavaan.ugent.be/tutorial/index.html
+
+Confirmatory Factor Analysis with R
+A Draft document using lavaan, sem, and OpenMx
+by Bruce Dudek
+https://shiny.rit.albany.edu/stat/cfa1test/index.html
+
+Alexander Beaujean's book: 
+Latent Variable Modeling using R: A Step-By-Step Guide 
+(Published by Routledge/Taylor & Francis)
+https://blogs.baylor.edu/rlatentvariable/sample-page/r-syntax/
+
+Cannot recommend enough Sacha Epskamps's tutoriels & vidéo
+http://sachaepskamp.com/SEM2020
+https://www.youtube.com/playlist?list=PLliBbGBc5nn3m8bXQ4CmOep3UmQ_5tVlC
+
+https://cjvanlissa.github.io/tidySEM/
+
+- Measurement Invariance
+https://towardsdatascience.com/testing-for-measurement-invariance-in-r-b44cace10148
+https://github.com/simsem/semTools/wiki/Partial-Measurement-Invariance
+https://github.com/SachaEpskamp/SEM-code-examples/blob/master/Measurement_invariance_examples/lavaan/StarWars_lavaan.R
+(Again sacha Epskamp)
+
+- Bifactor
+https://blogs.baylor.edu/rlatentvariable/sample-page/r-syntax/#Bi-factor_model
+http://drjosephhammer.com/research/bifactor-analysis-resources/
+https://cran.r-project.org/web/packages/BifactorIndicesCalculator/index.html
+http://sachaepskamp.com/SEM2020#Week_4_8211_Advanced_CFA_topics
+(Again sacha Epskamp)
+
+### Ouvrages et Articles
+
+- Ouvrages
+Gana, K., & Broc, G. (2018). Introduction à la modélisation par équations structurales : Manuel pratique avec lavaan. ISTE editions.
+
+Beaujean, A. A. (2014). Latent variable modeling using R : A step by step guide. Routledge/Taylor & Francis Group.
+
+Brown, T. A. (2015). Confirmatory factor analysis for applied research (Second edition). The Guilford Press.
+
+Kline, R. B. (2016). Principles and practice of structural equation modeling (Fourth edition). The Guilford Press.
+
+
+- Articles
+
+Kyriazos, T. A. (2018). Applied Psychometrics : The 3-Faced Construct Validation Method, a Routine for Evaluating a Factor Structure. Psychology, 09(08), 2044‑2072. https://doi.org/10.4236/psych.2018.98117
+
+Dima, A. L. (2018). Scale validation in applied health research : Tutorial for a 6-step R-based psychometrics protocol. Health Psychology and Behavioral Medicine, 6(1), 136‑161. https://doi.org/10.1080/21642850.2018.1472602
+
+Schmitt, T. a. (2011). Current Methodological Considerations in Exploratory and Confirmatory Factor Analysis. Journal of Psychoeducational Assessment, 29(4), 304‑321. https://doi.org/10.1177/0734282911406653
+
+Sellbom, M., & Tellegen, A. (2019). Factor analysis in psychological assessment research : Common pitfalls and recommendations. Psychological Assessment, 31(12), 1428‑1441. https://doi.org/10.1037/pas0000623
+
+McNeish, D., & Wolf, M. G. (2020). Thinking twice about sum scores. Behavior Research Methods. https://doi.org/10.3758/s13428-020-01398-0
+
+
+### podcast
+https://quantitudepod.org/s3e15-heywood-cases/
+
+https://quantitudepod.org/episode-12-measurement-noninvariance-can-we-ever-fail-to-not-incorrectly-reject-it/
+
+https://quantitudepod.org/latent-means/
+
+## Chargement des libraries
+
+
+```{r load libraries, echo=TRUE}
+
+library(summarytools)
+library(psych)
+library(psychTools)
+library(psy)
+library(lavaan)
+library(parameters)
+library(datawizard)
+library(dplyr)
+library(kableExtra)
+library(semTable)
+library(semTools)
+library(semPlot)
+library(tidySEM)
+
+
+```
+
+## Jeu de données
+
+### Ouverture des données
+
+```{r open data, echo=TRUE}
+
+data(bfi)
+
+```
+
+### decrire les données
+
+```{r describe data, echo=TRUE}
+
+describe(bfi)
+
+```
+
+### voir les données
+
+```{r view data, echo=TRUE}
+
+View(bfi)
+
+```
+
+### voir les données
+
+```{r view2 data, echo=TRUE}
+
+view(dfSummary(bfi))
+
+```
+
+### Subset des données
+
+```{r subset data, echo=TRUE}
+
+bfi2 <- subset(bfi, select = c("A1","A2","A3","A4","A5","C1","C2","C3","C4","C5",
+                               "E1","E2","E3","E4","E5","N1","N2","N3","N4","N5",
+                               "O1","O2","O3","O4","O5"))
+```
+
+## Analyse factorielle exploratoire (EFA)
+
+Test EFA from psych package
+
+```{r EFA test, echo=FALSE}
+
+factstruct <- check_factorstructure(bfi2)
+
+print(factstruct)
+
+```
+
+### Screeplot & Parralel Analysis
+
+#### Screeplot avec simulation
+
+```{r ScreePlot, echo=FALSE}
+screeplot <- scree.plot(bfi[, c("A1",  "A2",  "A3",  "A4",  "A5", 
+                            "C1",  "C2",  "C3",  "C4", "C5", 
+                            "E1", "E2", "E3", "E4", "E5", 
+                            "N1", "N2", "N3", "N4", "N5",
+                            "O1", "O2", "O3", "O4", "O5")],
+           simu=50,title="Scree Plot with simulation")
+
+print(screeplot)
+
+screeplot2 <- scree.plot(bfi2, simu=50,title="Scree Plot with simulation")
+
+print(screeplot2)
+
+```
+
+#### Parralel Analysis
+
+Attention plutôt utiliser wls pour des données ordinales non normales (non normales = effet plancher / effet plafond, pas distribution de Gauss) et ml pour score échelles (Gauss distribution) NB si bcp de catégorie de réponse ex likert à 6 catégories ml "peut" faire l'affaire
+
+```{r parallel analysis, echo=FALSE}
+set.seed(1234)
+
+parallel <- fa.parallel(bfi2,
+                       fm = 'wls',
+                       fa = 'fa',
+                       cor = "cor",
+                       n.iter = 50,
+                       SMC = TRUE,
+                       quant = .95)
+
+print(parallel)
+
+```
+
+#### Agreement method
+
+How many factor to retain ?
+
+```{r agreement EFA, echo=FALSE}
+
+
+agreement <- parameters::n_factors(bfi2, type ="FA", package = "all")
+
+print(agreement)
+
+plot(agreement)
+
+```
+
+### Creation de 2 dataset pour Random Split (EFA-CFA n=1400 each)
+
+#### Generation des Dataset dans R
+
+```{r EFA CFA Subsample, echo=FALSE}
+set.seed(123)
+
+partitions <- data_partition(bfi2, training_proportion = 0.5)
+bfi2efa <- partitions$training
+bfi2cfa <- partitions$test
+
+```
+
+### EFA factorial solutions
+
+#### EFA 1 factor
+
+##### look at only 1 item per factor
+
+```{r EFA1F, echo=FALSE}
+
+### look at only 1 item per factor 
+efa1 <- fa(bfi2efa, nfactors = 1, cor="cor", rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = TRUE, threshold = "max")
+
+print(efa1)
+
+```
+
+#### EFA 2 factor
+
+##### look at only 1 item per factor
+
+```{r EFA2F, echo=FALSE}
+
+### look at only 1 item per factor 
+efa2 <- fa(bfi2efa, nfactors = 2,cor="cor",rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = TRUE, threshold = "max")
+
+print(efa2)
+
+```
+
+#### look all item above 0.1 loading per factor (cross-loadings)
+
+```{r EFA2Fb, echo=FALSE}
+
+### look all item above 0.1 loading per factor (cross-loadings)
+efa2b <- fa(bfi2efa, nfactors = 2,cor="cor",rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = FALSE, threshold = 0.1)
+
+print(efa2b)
+
+```
+
+```{r EFA2Fc, echo=FALSE}
+
+### look all item above 0.1 loading per factor (cross-loadings)
+efa2c <- fa(bfi2efa, nfactors = 2,cor="cor",rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = TRUE, threshold = 0.01)
+
+print(efa2c)
+
+```
+
+#### EFA 3 factor
+
+##### look at only 1 item per factor
+
+```{r EFA3F, echo=FALSE}
+
+### look at only 1 item per factor 
+efa3 <- fa(bfi2efa, nfactors = 3,cor="cor",rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = TRUE, threshold = "max")
+
+print(efa3)
+
+```
+
+#### EFA 4 factor
+
+##### look at only 1 item per factor
+
+```{r EFA4F, echo=FALSE}
+
+### look at only 1 item per factor 
+efa4 <- fa(bfi2efa, nfactors = 4,cor="cor",rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = TRUE, threshold = "max")
+
+print(efa4)
+
+```
+
+#### EFA 5 factor
+
+##### look at only 1 item per factor
+
+```{r EFA5F, echo=FALSE}
+
+### look at only 1 item per factor 
+efa5 <- fa(bfi2efa, nfactors = 5,cor="cor",rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = TRUE, threshold = "max")
+
+print(efa5)
+
+### look all item above 0.1 loading per factor (cross-loadings)
+efa5b <- fa(bfi2efa, nfactors = 5,cor="cor",rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = TRUE, threshold = 0.29)
+
+print(efa5b)
+
+```
+
+#### look all item above 0.1 loading per factor (cross-loadings)
+
+```{r EFA5Fb, echo=FALSE}
+
+### look all item above 0.1 loading per factor (cross-loadings)
+efa5b <- fa(bfi2efa, nfactors = 5,cor="cor",rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = TRUE, threshold = 0.1)
+
+print(efa5b)
+
+```
+
+#### EFA 6 factor
+
+##### look at only 1 item per factor
+
+```{r EFA6F, echo=FALSE}
+
+### look at only 1 item per factor 
+efa6 <- fa(bfi2efa, nfactors = 6,cor="cor",rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = TRUE, threshold = "max")
+
+print(efa6)
+
+```
+
+#### look all item above 0.1 loading per factor (cross-loadings)
+
+```{r EFA6Fb, echo=FALSE}
+
+### look all item above 0.1 loading per factor (cross-loadings)
+efa6b <- fa(bfi2efa, nfactors = 6,cor="cor",rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = TRUE, threshold = 0.1)
+
+print(efa6b)
+
+```
+
+#### EFA 7 factor
+
+##### look at only 1 item per factor
+
+```{r EFA7F, echo=FALSE}
+
+### look at only 1 item per factor 
+efa7 <- fa(bfi2efa, nfactors = 7,cor="cor",rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = TRUE, threshold = "max")
+
+print(efa7)
+
+```
+
+#### look all item above 0.1 loading per factor (cross-loadings)
+
+```{r EFA7Fb, echo=FALSE}
+
+### look all item above 0.1 loading per factor (cross-loadings)
+efa7b <- fa(bfi2efa, nfactors = 7,cor="cor",rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = TRUE, threshold = 0.1)
+
+print(efa7b)
+
+```
+
+#### EFA 8 factor
+
+##### look at only 1 item per factor
+
+```{r EFA8F, echo=FALSE}
+
+### look at only 1 item per factor 
+efa8 <- fa(bfi2efa, nfactors = 8,cor="cor",rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = FALSE, threshold = "max")
+
+print(efa8)
+
+```
+
+#### look all item above 0.1 loading per factor (cross-loadings)
+
+```{r EFA78b, echo=FALSE}
+
+### look all item above 0.1 loading per factor (cross-loadings)
+efa8b <- fa(bfi2efa, nfactors = 8,cor="cor",rotate="oblimin",fm="wls") %>% 
+  model_parameters(sort = TRUE, threshold = 0.1)
+
+print(efa8b)
+
+```
+
+### CFA avec Lavaan
+
+#### CFA structures test factors model with lavaan
+
+Note more fit indices can be obtained with SemTools ex moreFitIndices(data)
+
+#### CFA 1 factor
+
+Note utiliser la commande mimic="Mplus"
+
+```{r CFA1F, echo=FALSE}
+
+## 1 factor
+cfa1 <- efa_to_cfa(efa1)
+
+print(cfa1)
+
+
+BFI1 <- cfa(cfa1, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE)
+
+print(BFI1)
+
+
+lavaan::summary(BFI1, standardized=TRUE, fit.measures=TRUE)
+
+standardizedSolution(BFI1)
+
+kbl(standardizedSolution(BFI1, output = "pretty"))
+
+## Ordering things from data order
+
+cfa1a <- 'WLS1 =~ A1 +  A2 +  A3 +  A4 +  A5 + C1 + C2 + C3 +  C4 + C5 + E1 + E2 + E3 + E4 + E5 + N1 + N2 + N3 + N4 + N5 + O1 + O2 + O3 + O4 + O5'
+
+BFI1a <- cfa(cfa1a, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE, std.lv = TRUE)
+
+summary(BFI1a, fit.measures = TRUE, standardized=TRUE)
+
+
+```
+
+#### CFA 2 factor
+
+```{r CFA2F, echo=FALSE}
+
+## 2 factor
+cfa2 <- efa_to_cfa(efa2)
+
+print(cfa2)
+
+BFI2 <- cfa(cfa2, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE)
+
+BFI2a <- cfa(cfa2, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE, std.lv = TRUE)
+
+print(BFI2)
+
+summary(BFI2, fit.measures = TRUE, standardized=TRUE)
+
+summary(BFI2a, fit.measures = TRUE, standardized=TRUE)
+
+standardizedSolution(BFI2)
+
+kbl(standardizedSolution(BFI2, output = "pretty"))
+
+```
+
+#### CFA 3 factor
+
+```{r CFA3F, echo=FALSE}
+
+## 4 factor
+cfa3 <- efa_to_cfa(efa3)
+
+print(cfa3)
+
+BFI3 <- cfa(cfa3, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE)
+
+BFI3a <- cfa(cfa3, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE, std.lv = TRUE)
+
+print(BFI3)
+
+summary(BFI3, fit.measures = TRUE, standardized=TRUE)
+
+summary(BFI3a, fit.measures = TRUE, standardized=TRUE)
+
+standardizedSolution(BFI3)
+
+kbl(standardizedSolution(BFI3, output = "pretty"))
+
+```
+
+#### CFA 4 factor
+
+```{r CFA4F, echo=FALSE}
+
+## 4 factor
+cfa4 <- efa_to_cfa(efa4)
+
+print(cfa4)
+
+BFI4 <- cfa(cfa4, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE)
+
+BFI4a <- cfa(cfa4, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE, std.lv = TRUE)
+
+print(BFI4)
+
+summary(BFI4, fit.measures = TRUE, standardized=TRUE)
+
+summary(BFI4a, fit.measures = TRUE, standardized=TRUE)
+
+standardizedSolution(BFI4)
+
+kbl(standardizedSolution(BFI4, output = "pretty"))
+
+```
+
+#### CFA 5 factor
+
+```{r CFA5F, echo=FALSE}
+
+## 5 factor
+cfa5 <- efa_to_cfa(efa5)
+
+print(cfa5)
+
+BFI5 <- cfa(cfa5, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE)
+
+BFI5a <- cfa(cfa5, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE, std.lv = TRUE)
+
+print(BFI5)
+
+summary(BFI5, fit.measures = TRUE, standardized=TRUE)
+
+summary(BFI5a, fit.measures = TRUE, standardized=TRUE)
+
+standardizedSolution(BFI5)
+
+kbl(standardizedSolution(BFI5, output = "pretty"))
+
+```
+
+#### CFA 5 factor modif
+
+```{r CFA5F, echo=FALSE}
+
+## 5 factor modif
+cfa5a <- '
+WLS2 =~ N1 + N2 + N3 + N4 + N5
+WLS3 =~ C4 + C2 + C3 + C5 + C1
+WLS1 =~ E2 + E4 + E1 + E3 + E5 + N4 + O4
+WLS5 =~ A3 + A2 + A5 + A4 + A1
+WLS4 =~ O3 + O5 + O1 + O2 + O4 + E3'
+
+cfa5b <- '
+WLS2 =~ N1 + N2 + N3 + N4 + N5
+WLS3 =~ C4 + C2 + C3 + C5 + C1
+WLS1 =~ E2 + E4 + E1 + E3 + E5 + O4
+WLS5 =~ A3 + A2 + A5 + A4 + A1
+WLS4 =~ O3 + O5 + O1 + O2 + O4'
+
+BFI5 <- cfa(cfa5, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE)
+
+BFI5a <- cfa(cfa5a, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE, std.lv = TRUE)
+
+BFI5b <- cfa(cfa5b, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE, std.lv = TRUE)
+
+
+print(BFI5)
+
+summary(BFI5, fit.measures = TRUE, standardized=TRUE)
+
+summary(BFI5a, fit.measures = TRUE, standardized=TRUE)
+
+standardizedSolution(BFI5)
+
+kbl(standardizedSolution(BFI5, output = "pretty"))
+
+```
+
+#### CFA 6 factor
+
+```{r CFA6F, echo=FALSE}
+
+## 6 factor
+cfa6 <- efa_to_cfa(efa6)
+
+print(cfa6)
+
+BFI6 <- cfa(cfa6, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE)
+
+BFI6a <- cfa(cfa6, data = bfi2cfa, estimator = "WLSMV", 
+            ordered= TRUE, std.lv = TRUE)
+
+print(BFI6)
+
+summary(BFI6, fit.measures = TRUE, standardized=TRUE)
+
+summary(BFI6a, fit.measures = TRUE, standardized=TRUE)
+
+standardizedSolution(BFI6)
+
+kbl(standardizedSolution(BFI6, output = "pretty"))
+
+print("quelque chose ne vas pas !!!!")
+print("go see Heywood case : https://quantitudepod.org/s3e15-heywood-cases/")
+
+```
+
+#### CFA fit comparisons
+
+```{r CFA Fit compare, echo=FALSE}
+
+# Creer un tableau de synthèse avec le package semTable
+
+models <- list("BFI1" = BFI1,"BFI2" = BFI2,"BFI3" = BFI3, "BFI4" = BFI4,"BFI5" = BFI5,"BFI5a" = BFI5a, "BFI5b" = BFI5b)
+
+## Note, nesting is not specified, so built-in nesting detection applies
+kbl(compareLavaan(models, fitmeas = c(
+  "chisq", "df", "aic", "bic", "cfi", "tli", "rmsea","rmsea.ci.lower","rmsea.ci.upper", "srmr")))
+
+
+```
+
+### CFA Plots
+
+#### BFI5
+
+```{r CFA BFI5 Plot}
+#from semPlot
+semPaths(BFI5, "std", edge.label.cex = 0.5, curvePivot = TRUE, layout = "tree2")
+
+print("look at : http://sachaepskamp.com/semPlot/examples#Lavaan")
+
+#from tidySEM
+graph_sem(model = BFI5)
+
+print("need to customize look at : https://cjvanlissa.github.io/tidySEM/articles/Plotting_graphs.html#optional-step-3-customizing-the-layout-1")
+
+
+```
+
+#### BFI5a
+
+```{r CFA BFI5a semPlot}
+
+semPaths(BFI5a, "std", edge.label.cex = 0.5, curvePivot = TRUE, layout = "tree2") 
+
+```
+
+### Bifactor model
+
+#### 1 general factor + 5 specific factors
+
+```{r Bifactor1GF5SF, echo=FALSE}
+
+BFI5Bifactor<-'
+WLS2 =~ N1 + N2 + N3 + N4 + N5
+WLS3 =~ C4 + C2 + C3 + C5 + C1
+WLS1 =~ E2 + E4 + E1 + E3 + E5
+WLS5 =~ A3 + A2 + A5 + A4 + A1
+WLS4 =~ O3 + O5 + O1 + O2 + O4
+GEN =~  E2 + E4 + A5 + E3 + E5 + A3 + N4 + C5 + C4 + A2 + E1 + O3 + A4 + N1 + N3 + N2 + C3 + O1 + C1 + N5 + C2 + A1 + O5 + O2 + O4
+GEN ~~ 0*WLS1
+GEN ~~ 0*WLS2
+GEN ~~ 0*WLS3
+GEN ~~ 0*WLS4
+GEN ~~ 0*WLS5
+WLS1 ~~ 0*WLS2
+WLS1 ~~ 0*WLS3
+WLS1 ~~ 0*WLS4
+WLS1 ~~ 0*WLS5
+WLS2 ~~ 0*WLS3
+WLS2 ~~ 0*WLS4
+WLS2 ~~ 0*WLS5
+WLS3 ~~ 0*WLS4
+WLS3 ~~ 0*WLS5
+WLS4 ~~ 0*WLS5
+'
+
+BFI5Bifactorfit<-cfa(BFI5Bifactor, data = bfi2cfa, orthogonal=TRUE, std.lv=TRUE, ordered= TRUE)
+
+print(BFI5Bifactorfit)
+
+summary(BFI5Bifactorfit, fit.measures = TRUE, standardized=TRUE)
+
+kbl(standardizedSolution(BFI5Bifactorfit, output = "pretty"))
+
+```
+
+#### Bifactor Plot
+
+```{r CFA Bifactor Plot}
+#from semPlot
+semPaths(BFI5Bifactorfit, "std", edge.label.cex = 0.5, curvePivot = TRUE, bifactor = "GEN", layout = "tree2") 
+
+print("look at : http://sachaepskamp.com/semPlot/examples#Lavaan")
+
+#from tidySEM
+graph_sem(model = BFI5Bifactorfit)
+
+print("need to customize look at : https://cjvanlissa.github.io/tidySEM/articles/Plotting_graphs.html#optional-step-3-customizing-the-layout-1")
+
+```
+
+### Measurement Invariance
+
+Inspired from Sacha Epskamp :
+https://github.com/SachaEpskamp/SEM-code-examples/blob/master/Measurement_invariance_examples/lavaan/StarWars_lavaan.R
+
+## Select data with group 
+
+```{r Subset BFI3 with group Var}
+
+bfi3 <- subset(bfi, select = c("A1","A2","A3","A4","A5","C1","C2","C3","C4","C5",
+                               "E1","E2","E3","E4","E5","N1","N2","N3","N4","N5",
+                               "O1","O2","O3","O4","O5", "gender"))
+```
+
+# Test for configural invariance 5 factor BFI
+
+```{r config invar cfa5}
+conf <- cfa(cfa5, data = bfi3, group = "gender", std.lv=TRUE)
+
+fitMeasures(conf)
+```
+
+# Test for weak invariance
+```{r weak invar cfa5}
+weak <- cfa(cfa5, data = bfi3, group = "gender", group.equal = "loadings", std.lv=TRUE)
+
+anova(conf,weak)
+
+```
+
+# Test for strong invariance
+
+```{r strong invar cfa5}
+strong <- cfa(cfa5, data = bfi3, group = "gender",group.equal = c("loadings","intercepts"), std.lv=TRUE)
+
+anova(conf,weak, strong)
+```
+
