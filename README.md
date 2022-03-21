@@ -58,6 +58,7 @@ http://sachaepskamp.com/SEM2020#Week_4_8211_Advanced_CFA_topics
 ### Ouvrages et Articles
 
 - Ouvrages
+
 Gana, K., & Broc, G. (2018). Introduction à la modélisation par équations structurales : Manuel pratique avec lavaan. ISTE editions.
 
 Beaujean, A. A. (2014). Latent variable modeling using R : A step by step guide. Routledge/Taylor & Francis Group.
