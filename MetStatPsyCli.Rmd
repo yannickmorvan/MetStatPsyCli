@@ -38,6 +38,9 @@ https://rpubs.com/mkearney/103040
 Of course lavaan Tutorials : 
 https://lavaan.ugent.be/tutorial/index.html
 
+And for measurement invariance :
+https://lavaan.ugent.be/tutorial/groups.html
+
 Confirmatory Factor Analysis with R
 A Draft document using lavaan, sem, and OpenMx
 by Bruce Dudek
