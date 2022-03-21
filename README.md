@@ -83,7 +83,7 @@ McNeish, D., & Wolf, M. G. (2020). Thinking twice about sum scores. Behavior Res
 Putnick, D. L., & Bornstein, M. H. (2016). Measurement invariance conventions and reporting : The state of the art and future directions for psychological research. Developmental Review, 41, 71‑90. https://doi.org/10.1016/j.dr.2016.06.004
 
 
-### podcast
+### Podcast
 
 https://quantitudepod.org/s3e15-heywood-cases/
 
