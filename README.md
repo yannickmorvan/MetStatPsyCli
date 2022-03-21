@@ -40,6 +40,7 @@ https://www.youtube.com/playlist?list=PLliBbGBc5nn3m8bXQ4CmOep3UmQ_5tVlC
 https://cjvanlissa.github.io/tidySEM/
 
 - Measurement Invariance
+
 Lavaan tutorial
 https://lavaan.ugent.be/tutorial/groups.html
 
@@ -49,6 +50,7 @@ https://github.com/SachaEpskamp/SEM-code-examples/blob/master/Measurement_invari
 (Again sacha Epskamp)
 
 - Bifactor
+
 https://blogs.baylor.edu/rlatentvariable/sample-page/r-syntax/#Bi-factor_model
 http://drjosephhammer.com/research/bifactor-analysis-resources/
 https://cran.r-project.org/web/packages/BifactorIndicesCalculator/index.html
