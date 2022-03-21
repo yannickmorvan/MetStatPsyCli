@@ -58,6 +58,9 @@ https://www.youtube.com/playlist?list=PLliBbGBc5nn3m8bXQ4CmOep3UmQ_5tVlC
 https://cjvanlissa.github.io/tidySEM/
 
 - Measurement Invariance
+Lavaan tutorial
+https://lavaan.ugent.be/tutorial/groups.html
+
 https://towardsdatascience.com/testing-for-measurement-invariance-in-r-b44cace10148
 https://github.com/simsem/semTools/wiki/Partial-Measurement-Invariance
 https://github.com/SachaEpskamp/SEM-code-examples/blob/master/Measurement_invariance_examples/lavaan/StarWars_lavaan.R
