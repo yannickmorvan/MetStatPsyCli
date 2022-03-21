@@ -21,30 +21,38 @@ https://shiny.rit.albany.edu/stat/cfa1test/lavaan.html#obtain-coefficients
 https://rpubs.com/mkearney/103040
 
 Of course lavaan Tutorials : 
+
 https://lavaan.ugent.be/tutorial/index.html
 
 Confirmatory Factor Analysis with R
 A Draft document using lavaan, sem, and OpenMx
 by Bruce Dudek
+
 https://shiny.rit.albany.edu/stat/cfa1test/index.html
 
 Alexander Beaujean's book: 
 Latent Variable Modeling using R: A Step-By-Step Guide 
 (Published by Routledge/Taylor & Francis)
+
 https://blogs.baylor.edu/rlatentvariable/sample-page/r-syntax/
 
 Cannot recommend enough Sacha Epskamps's tutoriels & vidéo
+
 http://sachaepskamp.com/SEM2020
 
 https://www.youtube.com/playlist?list=PLliBbGBc5nn3m8bXQ4CmOep3UmQ_5tVlC
 
 Also take a look at Caspar van Lissa
+
 https://cjvanlissa.github.io/tidySEM/
 
 - Measurement Invariance
 
 Lavaan tutorial
+
 https://lavaan.ugent.be/tutorial/groups.html
+
+But also
 
 https://towardsdatascience.com/testing-for-measurement-invariance-in-r-b44cace10148
 
