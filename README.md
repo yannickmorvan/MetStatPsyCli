@@ -80,6 +80,8 @@ Sellbom, M., & Tellegen, A. (2019). Factor analysis in psychological assessment 
 
 McNeish, D., & Wolf, M. G. (2020). Thinking twice about sum scores. Behavior Research Methods. https://doi.org/10.3758/s13428-020-01398-0
 
+Putnick, D. L., & Bornstein, M. H. (2016). Measurement invariance conventions and reporting : The state of the art and future directions for psychological research. Developmental Review, 41, 71‑90. https://doi.org/10.1016/j.dr.2016.06.004
+
 
 ### podcast
 

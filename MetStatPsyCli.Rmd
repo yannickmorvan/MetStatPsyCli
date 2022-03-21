@@ -76,6 +76,7 @@ http://sachaepskamp.com/SEM2020#Week_4_8211_Advanced_CFA_topics
 ### Ouvrages et Articles
 
 - Ouvrages
+
 Gana, K., & Broc, G. (2018). Introduction à la modélisation par équations structurales : Manuel pratique avec lavaan. ISTE editions.
 
 Beaujean, A. A. (2014). Latent variable modeling using R : A step by step guide. Routledge/Taylor & Francis Group.
@@ -96,6 +97,8 @@ Schmitt, T. a. (2011). Current Methodological Considerations in Exploratory and 
 Sellbom, M., & Tellegen, A. (2019). Factor analysis in psychological assessment research : Common pitfalls and recommendations. Psychological Assessment, 31(12), 1428‑1441. https://doi.org/10.1037/pas0000623
 
 McNeish, D., & Wolf, M. G. (2020). Thinking twice about sum scores. Behavior Research Methods. https://doi.org/10.3758/s13428-020-01398-0
+
+Putnick, D. L., & Bornstein, M. H. (2016). Measurement invariance conventions and reporting : The state of the art and future directions for psychological research. Developmental Review, 41, 71‑90. https://doi.org/10.1016/j.dr.2016.06.004
 
 
 ### podcast
