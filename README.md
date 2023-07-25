@@ -108,6 +108,11 @@ https://quantitudepod.org/episode-12-measurement-noninvariance-can-we-ever-fail-
 
 https://quantitudepod.org/latent-means/
 
+### To think about the Big Five as a construct
+see the presentation David Condon gave at the 2023 Congress of the Association for Research in Personality :
+https://twitter.com/JessieSunPsych/status/1682794801643634689?s=20
+Slide available here : https://osf.io/uy4s2?view_only=a683621d9dec4caf9a257462699f81f9
+
 ### Rmarkdown 
 
 Pour avoir accès au fichier du cours : 
