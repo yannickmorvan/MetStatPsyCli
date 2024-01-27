@@ -232,9 +232,9 @@ factstruct <- check_factorstructure(bfi2) Erreur dans check_factorstructure(bfi2
 
 ```{r EFA test, echo=FALSE}
 
-factstruct <- check_factorstructure(bfi2)
+#factstruct <- check_factorstructure(bfi2)
 
-print(factstruct)
+#print(factstruct)
 
 ```
 
@@ -316,6 +316,20 @@ library(datawizard)
 partitions <- data_partition(bfi2, seed = 123, proportion = c(0.49, 0.50))
 bfi2efa <- partitions$p_0.49
 bfi2cfa <- partitions$p_0.5
+
+#get rid of row_id
+
+bfi2efa <- subset(bfi2efa, select = 
+                    c("A1","A2","A3","A4","A5","C1","C2","C3","C4","C5",
+                      "E1","E2","E3","E4","E5",
+                      "N1","N2","N3","N4","N5",
+                      "O1","O2","O3","O4","O5"))
+
+bfi2cfa <- subset(bfi2cfa, select = 
+                    c("A1","A2","A3","A4","A5","C1","C2","C3","C4","C5",
+                      "E1","E2","E3","E4","E5",
+                      "N1","N2","N3","N4","N5",
+                      "O1","O2","O3","O4","O5"))
 
 
 ```
