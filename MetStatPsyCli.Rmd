@@ -777,7 +777,12 @@ graph_sem(model = BFI5)
 
 print("need to customize look at : https://cjvanlissa.github.io/tidySEM/articles/Plotting_graphs.html#optional-step-3-customizing-the-layout-1")
 
+#from lavaanPlot
+#unstandardized
 lavaanPlot(model = BFI5, edge_options = list(color = "grey"), coefs = TRUE)
+
+#standardized
+lavaanPlot(model = BFI5a, edge_options = list(color = "grey"), coefs = TRUE)
 
 
 ```
