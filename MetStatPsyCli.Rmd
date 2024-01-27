@@ -176,6 +176,7 @@ library(semTools)
 library(semPlot)
 library(tidySEM)
 library(lavaanPlot)
+library(BifactorIndicesCalculator)
 
 
 ```
@@ -848,6 +849,17 @@ graph_sem(model = BFI5Bifactorfit)
 
 print("need to customize look at : https://cjvanlissa.github.io/tidySEM/articles/Plotting_graphs.html#optional-step-3-customizing-the-layout-1")
 
+#from lavaanPlot
+#unstandardized
+lavaanPlot(model = BFI5Bifactorfit, edge_options = list(color = "grey"), coefs = TRUE)
+
+```
+
+#### Bifactor Indices calculator
+
+```{r Bifactor Indices Calculator}
+
+bifactorIndices(BFI5Bifactorfit, UniLambda = BFI1)
 ```
 
 ### Measurement Invariance
