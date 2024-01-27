@@ -175,6 +175,7 @@ library(semTable)
 library(semTools)
 library(semPlot)
 library(tidySEM)
+library(lavaanPlot)
 
 
 ```
@@ -775,6 +776,8 @@ print("look at : http://sachaepskamp.com/semPlot/examples#Lavaan")
 graph_sem(model = BFI5)
 
 print("need to customize look at : https://cjvanlissa.github.io/tidySEM/articles/Plotting_graphs.html#optional-step-3-customizing-the-layout-1")
+
+lavaanPlot(model = BFI5, edge_options = list(color = "grey"), coefs = TRUE)
 
 
 ```
