@@ -33,7 +33,7 @@ ceux qui partagent leurs ressources
 
 -   Tutorial EFA CFA
 
-<https://cran.r-project.org/web/packages/parameters/vignettes/efa_cfa.html>
+<https://easystats.github.io/parameters/articles/efa_cfa.html>
 
 -   And with nice tables
 
