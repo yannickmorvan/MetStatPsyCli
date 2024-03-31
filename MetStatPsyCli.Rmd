@@ -35,6 +35,8 @@ ceux qui partagent leurs ressources
 
 <https://easystats.github.io/parameters/articles/efa_cfa.html>
 
+<https://www.consultoriapsicometria.com/en/post/confirmatory-factor-analysis-fundamentals>
+
 -   And with nice tables
 
 <https://cran.r-project.org/web/packages/semTable/vignettes/semtable.pdf>
