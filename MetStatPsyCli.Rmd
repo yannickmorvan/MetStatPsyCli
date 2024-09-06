@@ -33,7 +33,9 @@ ceux qui partagent leurs ressources
 
 -   Tutorial EFA CFA
 
-<https://cran.r-project.org/web/packages/parameters/vignettes/efa_cfa.html>
+<https://easystats.github.io/parameters/articles/efa_cfa.html>
+
+<https://www.consultoriapsicometria.com/en/post/confirmatory-factor-analysis-fundamentals>
 
 -   And with nice tables
 
