@@ -260,7 +260,7 @@ print(screeplot2)
 
 ```
 
-#### Parralel Analysis
+#### Parrallel Analysis
 
 Attention plutôt utiliser wls pour des données ordinales non normales
 (non normales = effet plancher / effet plafond, pas distribution de
@@ -308,15 +308,17 @@ plot(agreement) + theme_modern()
 
 data_partition {datawizard}
 
-NB voir comment obtenir une partition égale 1400 EFA et 1400 CFA
+NB Pour obtenir une partition égale 1400 EFA et 1400 CFA il faut
+utiliser une répartition en proportion de type : proportion =
+c(0.499999, 0.50)) soint avec beaucoup de 9 après la virgule
 
 NB Attention création d'une variable row_id à enlever
 
 ```{r EFA CFA Subsample, echo=FALSE}
 library(datawizard)
 
-partitions <- data_partition(bfi2, seed = 123, proportion = c(0.49, 0.50))
-bfi2efa <- partitions$p_0.49
+partitions <- data_partition(bfi2, seed = 123, proportion = c(0.499999, 0.50))
+bfi2efa <- partitions$p_0.499999
 bfi2cfa <- partitions$p_0.5
 
 #get rid of row_id
