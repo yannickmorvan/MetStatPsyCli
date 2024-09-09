@@ -173,7 +173,7 @@ library(parameters)
 library(datawizard)
 library(dplyr)
 library(kableExtra)
-library(semTable)
+#library(semTable) sem Table was removed from CRAN
 library(semTools)
 library(semPlot)
 library(tidySEM)
@@ -589,6 +589,8 @@ BFI2a <- cfa(cfa2, data = bfi2cfa, estimator = "WLSMV",
             ordered= TRUE, std.lv = TRUE)
 
 print(BFI2)
+
+print(BFI2a)
 
 summary(BFI2, fit.measures = TRUE, standardized=TRUE)
 
