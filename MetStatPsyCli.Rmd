@@ -767,6 +767,10 @@ kbl(compareLavaan(models, fitmeas = c(
   "chisq", "df", "aic", "bic", "cfi", "tli", "rmsea","rmsea.ci.lower","rmsea.ci.upper", "srmr")))
 
 
+# BEWARE OF FIT INDICES AS RULE OF THUMB CHECK OUT MCNEISH WORK
+# Dynamic Fit Indices
+# https://dynamicfit.app/connect/
+
 ```
 
 ### CFA Plots
