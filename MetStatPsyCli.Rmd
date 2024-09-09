@@ -793,7 +793,7 @@ print("need to customize look at : https://cjvanlissa.github.io/tidySEM/articles
 lavaanPlot(model = BFI5, edge_options = list(color = "grey"), coefs = TRUE)
 
 #standardized
-lavaanPlot(model = BFI5a, edge_options = list(color = "grey"), coefs = TRUE)
+lavaanPlot(model = BFI5a, edge_options = list(color = "grey"), coefs = TRUE))
 
 
 ```
@@ -870,6 +870,8 @@ lavaanPlot(model = BFI5Bifactorfit, edge_options = list(color = "grey"), coefs =
 ```{r Bifactor Indices Calculator}
 
 bifactorIndices(BFI5Bifactorfit, UniLambda = BFI1)
+
+print(" To understand those indices look at this paper ! Rodriguez A, Reise SP, Haviland MG. Evaluating bifactor models: Calculating and interpreting statistical indices. Psychol Methods. 2016 Jun;21(2):137-50. doi: 10.1037/met0000045. Epub 2015 Nov 2. PMID: 26523435.")
 ```
 
 ### Measurement Invariance
