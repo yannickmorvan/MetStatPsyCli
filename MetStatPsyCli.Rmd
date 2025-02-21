@@ -5,6 +5,8 @@ date: "01/02/2022"
 output: html_document
 editor_options: 
   chunk_output_type: console
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
@@ -13,122 +15,152 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+This is an R Markdown document. Markdown is a simple formatting syntax
+for authoring HTML, PDF, and MS Word documents. For more details on
+using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+When you click the **Knit** button a document will be generated that
+includes both content as well as the output of any embedded R code
+chunks within the document. You can embed an R code chunk like this:
 
 ## Références et liens utiles
 
-Ce document à été préparé à l'aide de différentes ressources (tutoriels en ligne, vidéos, cours, articles, ouvrages), merci à toutes celles et ceux qui partagent leurs ressources
+Ce document à été préparé à l'aide de différentes ressources (tutoriels
+en ligne, vidéos, cours, articles, ouvrages), merci à toutes celles et
+ceux qui partagent leurs ressources
 
 ### Tutoriels
 
-- Tutorial EFA CFA
+-   Tutorial EFA CFA
 
-https://cran.r-project.org/web/packages/parameters/vignettes/efa_cfa.html
+<https://easystats.github.io/parameters/articles/efa_cfa.html>
 
-- And with nice tables
+<https://www.consultoriapsicometria.com/en/post/confirmatory-factor-analysis-fundamentals>
 
-https://cran.r-project.org/web/packages/semTable/vignettes/semtable.pdf
+-   And with nice tables
 
-https://shiny.rit.albany.edu/stat/cfa1test/lavaan.html#obtain-coefficients
+<https://cran.r-project.org/web/packages/semTable/vignettes/semtable.pdf>
 
-https://rpubs.com/mkearney/103040
+<https://shiny.rit.albany.edu/stat/cfa1test/lavaan.html#obtain-coefficients>
 
-Of course lavaan Tutorials : 
+<https://rpubs.com/mkearney/103040>
 
-https://lavaan.ugent.be/tutorial/index.html
+Of course lavaan Tutorials :
+
+<https://lavaan.ugent.be/tutorial/index.html>
 
 And for measurement invariance :
 
-https://lavaan.ugent.be/tutorial/groups.html
+<https://lavaan.ugent.be/tutorial/groups.html>
 
-Confirmatory Factor Analysis with R
-A Draft document using lavaan, sem, and OpenMx
-by Bruce Dudek
+Confirmatory Factor Analysis with R A Draft document using lavaan, sem,
+and OpenMx by Bruce Dudek
 
-https://shiny.rit.albany.edu/stat/cfa1test/index.html
+<https://shiny.rit.albany.edu/stat/cfa1test/index.html>
 
-Alexander Beaujean's book: 
-Latent Variable Modeling using R: A Step-By-Step Guide 
-(Published by Routledge/Taylor & Francis)
+Alexander Beaujean's book: Latent Variable Modeling using R: A
+Step-By-Step Guide (Published by Routledge/Taylor & Francis)
 
-https://blogs.baylor.edu/rlatentvariable/sample-page/r-syntax/
+<https://blogs.baylor.edu/rlatentvariable/sample-page/r-syntax/>
 
 Cannot recommend enough Sacha Epskamps's tutoriels & vidéo
 
-http://sachaepskamp.com/SEM2020
+<http://sachaepskamp.com/SEM2020>
 
-https://www.youtube.com/playlist?list=PLliBbGBc5nn3m8bXQ4CmOep3UmQ_5tVlC
+<https://www.youtube.com/playlist?list=PLliBbGBc5nn3m8bXQ4CmOep3UmQ_5tVlC>
 
 Also take a look at Caspar van Lissa
 
-https://cjvanlissa.github.io/tidySEM/
+<https://cjvanlissa.github.io/tidySEM/>
 
-- Measurement Invariance
+-   Measurement Invariance
 
 Lavaan tutorial
 
-https://lavaan.ugent.be/tutorial/groups.html
+<https://lavaan.ugent.be/tutorial/groups.html>
 
 But also
 
-https://towardsdatascience.com/testing-for-measurement-invariance-in-r-b44cace10148
+<https://towardsdatascience.com/testing-for-measurement-invariance-in-r-b44cace10148>
 
-https://github.com/simsem/semTools/wiki/Partial-Measurement-Invariance
+<https://github.com/simsem/semTools/wiki/Partial-Measurement-Invariance>
 
-https://github.com/SachaEpskamp/SEM-code-examples/blob/master/Measurement_invariance_examples/lavaan/StarWars_lavaan.R
+<https://github.com/SachaEpskamp/SEM-code-examples/blob/master/Measurement_invariance_examples/lavaan/StarWars_lavaan.R>
 (Again sacha Epskamp)
 
-- Bifactor
+-   Bifactor
 
-https://blogs.baylor.edu/rlatentvariable/sample-page/r-syntax/#Bi-factor_model
+<https://blogs.baylor.edu/rlatentvariable/sample-page/r-syntax/#Bi-factor_model>
 
-http://drjosephhammer.com/research/bifactor-analysis-resources/
+<http://drjosephhammer.com/research/bifactor-analysis-resources/>
 
-https://cran.r-project.org/web/packages/BifactorIndicesCalculator/index.html
+<https://cran.r-project.org/web/packages/BifactorIndicesCalculator/index.html>
 
-http://sachaepskamp.com/SEM2020#Week_4_8211_Advanced_CFA_topics
-(Again sacha Epskamp)
+<http://sachaepskamp.com/SEM2020#Week_4_8211_Advanced_CFA_topics> (Again
+sacha Epskamp)
 
 ### Ouvrages et Articles
 
-- Ouvrages
+-   Ouvrages
 
-Gana, K., & Broc, G. (2018). Introduction à la modélisation par équations structurales : Manuel pratique avec lavaan. ISTE editions.
+Gana, K., & Broc, G. (2018). Introduction à la modélisation par
+équations structurales : Manuel pratique avec lavaan. ISTE editions.
 
-Beaujean, A. A. (2014). Latent variable modeling using R : A step by step guide. Routledge/Taylor & Francis Group.
+Beaujean, A. A. (2014). Latent variable modeling using R : A step by
+step guide. Routledge/Taylor & Francis Group.
 
-Brown, T. A. (2015). Confirmatory factor analysis for applied research (Second edition). The Guilford Press.
+Brown, T. A. (2015). Confirmatory factor analysis for applied research
+(Second edition). The Guilford Press.
 
-Kline, R. B. (2016). Principles and practice of structural equation modeling (Fourth edition). The Guilford Press.
+Kline, R. B. (2016). Principles and practice of structural equation
+modeling (Fourth edition). The Guilford Press.
 
+-   Articles
 
-- Articles
+Kyriazos, T. A. (2018). Applied Psychometrics : The 3-Faced Construct
+Validation Method, a Routine for Evaluating a Factor Structure.
+Psychology, 09(08), 2044‑2072.
+<https://doi.org/10.4236/psych.2018.98117>
 
-Kyriazos, T. A. (2018). Applied Psychometrics : The 3-Faced Construct Validation Method, a Routine for Evaluating a Factor Structure. Psychology, 09(08), 2044‑2072. https://doi.org/10.4236/psych.2018.98117
+Dima, A. L. (2018). Scale validation in applied health research :
+Tutorial for a 6-step R-based psychometrics protocol. Health Psychology
+and Behavioral Medicine, 6(1), 136‑161.
+<https://doi.org/10.1080/21642850.2018.1472602>
 
-Dima, A. L. (2018). Scale validation in applied health research : Tutorial for a 6-step R-based psychometrics protocol. Health Psychology and Behavioral Medicine, 6(1), 136‑161. https://doi.org/10.1080/21642850.2018.1472602
+Schmitt, T. a. (2011). Current Methodological Considerations in
+Exploratory and Confirmatory Factor Analysis. Journal of
+Psychoeducational Assessment, 29(4), 304‑321.
+<https://doi.org/10.1177/0734282911406653>
 
-Schmitt, T. a. (2011). Current Methodological Considerations in Exploratory and Confirmatory Factor Analysis. Journal of Psychoeducational Assessment, 29(4), 304‑321. https://doi.org/10.1177/0734282911406653
+Sellbom, M., & Tellegen, A. (2019). Factor analysis in psychological
+assessment research : Common pitfalls and recommendations. Psychological
+Assessment, 31(12), 1428‑1441. <https://doi.org/10.1037/pas0000623>
 
-Sellbom, M., & Tellegen, A. (2019). Factor analysis in psychological assessment research : Common pitfalls and recommendations. Psychological Assessment, 31(12), 1428‑1441. https://doi.org/10.1037/pas0000623
+McNeish, D., & Wolf, M. G. (2020). Thinking twice about sum scores.
+Behavior Research Methods. <https://doi.org/10.3758/s13428-020-01398-0>
 
-McNeish, D., & Wolf, M. G. (2020). Thinking twice about sum scores. Behavior Research Methods. https://doi.org/10.3758/s13428-020-01398-0
-
-Putnick, D. L., & Bornstein, M. H. (2016). Measurement invariance conventions and reporting : The state of the art and future directions for psychological research. Developmental Review, 41, 71‑90. https://doi.org/10.1016/j.dr.2016.06.004
-
+Putnick, D. L., & Bornstein, M. H. (2016). Measurement invariance
+conventions and reporting : The state of the art and future directions
+for psychological research. Developmental Review, 41, 71‑90.
+<https://doi.org/10.1016/j.dr.2016.06.004>
 
 ### Podcast
 
-https://quantitudepod.org/s3e15-heywood-cases/
+<https://quantitudepod.org/s3e15-heywood-cases/>
 
-https://quantitudepod.org/episode-12-measurement-noninvariance-can-we-ever-fail-to-not-incorrectly-reject-it/
+<https://quantitudepod.org/episode-12-measurement-noninvariance-can-we-ever-fail-to-not-incorrectly-reject-it/>
 
-https://quantitudepod.org/latent-means/
+<https://quantitudepod.org/latent-means/>
+
+### To think about the Big Five as a construct
+
+see the presentation David Condon gave at the 2023 Congress of the
+Association for Research in Personality :
+<https://twitter.com/JessieSunPsych/status/1682794801643634689?s=20>
+Slide available here :
+<https://osf.io/uy4s2?view_only=a683621d9dec4caf9a257462699f81f9>
 
 ## Chargement des libraries
-
 
 ```{r load libraries, echo=TRUE}
 
@@ -141,10 +173,12 @@ library(parameters)
 library(datawizard)
 library(dplyr)
 library(kableExtra)
-library(semTable)
+#library(semTable) sem Table was removed from CRAN
 library(semTools)
 library(semPlot)
 library(tidySEM)
+library(lavaanPlot)
+library(BifactorIndicesCalculator)
 
 
 ```
@@ -175,7 +209,7 @@ View(bfi)
 
 ```
 
-### voir les données
+### voir les données résumées
 
 ```{r view2 data, echo=TRUE}
 
@@ -187,20 +221,26 @@ view(dfSummary(bfi))
 
 ```{r subset data, echo=TRUE}
 
-bfi2 <- subset(bfi, select = c("A1","A2","A3","A4","A5","C1","C2","C3","C4","C5",
-                               "E1","E2","E3","E4","E5","N1","N2","N3","N4","N5",
+bfi2 <- subset(bfi, select = c("A1","A2","A3","A4","A5",
+                               "C1","C2","C3","C4","C5",
+                               "E1","E2","E3","E4","E5",
+                               "N1","N2","N3","N4","N5",
                                "O1","O2","O3","O4","O5"))
 ```
 
 ## Analyse factorielle exploratoire (EFA)
 
-Test EFA from psych package
+Test EFA from psych package NB fonction à vérifier car message erreur
+
+``` r
+factstruct <- check_factorstructure(bfi2) Erreur dans check_factorstructure(bfi2) : impossible de trouver la fonction "check_factorstructure"
+```
 
 ```{r EFA test, echo=FALSE}
 
-factstruct <- check_factorstructure(bfi2)
+#factstruct <- check_factorstructure(bfi2)
 
-print(factstruct)
+#print(factstruct)
 
 ```
 
@@ -224,9 +264,12 @@ print(screeplot2)
 
 ```
 
-#### Parralel Analysis
+#### Parallel Analysis
 
-Attention plutôt utiliser wls pour des données ordinales non normales (non normales = effet plancher / effet plafond, pas distribution de Gauss) et ml pour score échelles (Gauss distribution) NB si bcp de catégorie de réponse ex likert à 6 catégories ml "peut" faire l'affaire
+Attention plutôt utiliser wls pour des données ordinales non normales
+(non normales = effet plancher / effet plafond, pas distribution de
+Gauss) et ml pour score échelles (Gauss distribution) NB si bcp de
+catégorie de réponse ex likert à 6 catégories ml "peut" faire l'affaire
 
 ```{r parallel analysis, echo=FALSE}
 set.seed(1234)
@@ -247,14 +290,19 @@ print(parallel)
 
 How many factor to retain ?
 
-```{r agreement EFA, echo=FALSE}
+see
+<https://easystats.github.io/parameters/articles/efa_cfa.html?q=agreement#the-method-agreement-procedure>
 
+```{r agreement EFA, echo=FALSE}
 
 agreement <- parameters::n_factors(bfi2, type ="FA", package = "all")
 
 print(agreement)
 
-plot(agreement)
+library(see)
+
+plot(agreement) + theme_modern()
+
 
 ```
 
@@ -262,12 +310,41 @@ plot(agreement)
 
 #### Generation des Dataset dans R
 
-```{r EFA CFA Subsample, echo=FALSE}
-set.seed(123)
+data_partition {datawizard}
 
+NB Pour obtenir une partition égale 1400 EFA et 1400 CFA il faut
+utiliser une répartition en proportion de type : proportion =
+c(0.499999, 0.50)) soint avec beaucoup de 9 après la virgule
+
+NB Attention création d'une variable row_id à enlever
+
+```{r EFA CFA Subsample, echo=FALSE}
+library(datawizard)
+
+partitions <- data_partition(bfi2, seed = 123, proportion = c(0.499999, 0.50))
+bfi2efa <- partitions$p_0.499999
+bfi2cfa <- partitions$p_0.5
+
+#get rid of row_id
+
+bfi2efa <- subset(bfi2efa, select = 
+                    c("A1","A2","A3","A4","A5","C1","C2","C3","C4","C5",
+                      "E1","E2","E3","E4","E5",
+                      "N1","N2","N3","N4","N5",
+                      "O1","O2","O3","O4","O5"))
+
+bfi2cfa <- subset(bfi2cfa, select = 
+                    c("A1","A2","A3","A4","A5","C1","C2","C3","C4","C5",
+                      "E1","E2","E3","E4","E5",
+                      "N1","N2","N3","N4","N5",
+                      "O1","O2","O3","O4","O5"))
+
+<<<<<<< HEAD
 partitions <- data_partition(bfi2, proportion = 0.5, seed = 123)
 efa <- partitions$p_0.5
 cfa <- partitions$test
+=======
+>>>>>>> 5928d8457348486df4d618764ca8d3befb3be457
 
 ```
 
@@ -301,7 +378,7 @@ print(efa2)
 
 ```
 
-#### look all item above 0.1 loading per factor (cross-loadings)
+##### look all item above 0.1 loading per factor (cross-loadings)
 
 ```{r EFA2Fb, echo=FALSE}
 
@@ -371,13 +448,13 @@ print(efa5b)
 
 ```
 
-#### look all item above 0.1 loading per factor (cross-loadings)
+##### look all item above 0.1 loading per factor (cross-loadings)
 
 ```{r EFA5Fb, echo=FALSE}
 
 ### look all item above 0.1 loading per factor (cross-loadings)
 efa5b <- fa(bfi2efa, nfactors = 5,cor="cor",rotate="oblimin",fm="wls") %>% 
-  model_parameters(sort = TRUE, threshold = 0.1)
+  model_parameters(sort = TRUE, threshold = 0.01)
 
 print(efa5b)
 
@@ -465,7 +542,8 @@ print(efa8b)
 
 #### CFA structures test factors model with lavaan
 
-Note more fit indices can be obtained with SemTools ex moreFitIndices(data)
+Note more fit indices can be obtained with SemTools ex
+moreFitIndices(data)
 
 #### CFA 1 factor
 
@@ -493,7 +571,7 @@ kbl(standardizedSolution(BFI1, output = "pretty"))
 
 ## Ordering things from data order
 
-cfa1a <- 'WLS1 =~ A1 +  A2 +  A3 +  A4 +  A5 + C1 + C2 + C3 +  C4 + C5 + E1 + E2 + E3 + E4 + E5 + N1 + N2 + N3 + N4 + N5 + O1 + O2 + O3 + O4 + O5'
+cfa1a <- 'WLS1 =~ A1 +  A2 +  A3 +  A4 +  A5 + C1 + C2 + C3 + C4 + C5 + E1 + E2 + E3 + E4 + E5 + N1 + N2 + N3 + N4 + N5 + O1 + O2 + O3 + O4 + O5'
 
 BFI1a <- cfa(cfa1a, data = bfi2cfa, estimator = "WLSMV", 
             ordered= TRUE, std.lv = TRUE)
@@ -519,6 +597,8 @@ BFI2a <- cfa(cfa2, data = bfi2cfa, estimator = "WLSMV",
             ordered= TRUE, std.lv = TRUE)
 
 print(BFI2)
+
+print(BFI2a)
 
 summary(BFI2, fit.measures = TRUE, standardized=TRUE)
 
@@ -695,6 +775,10 @@ kbl(compareLavaan(models, fitmeas = c(
   "chisq", "df", "aic", "bic", "cfi", "tli", "rmsea","rmsea.ci.lower","rmsea.ci.upper", "srmr")))
 
 
+# BEWARE OF FIT INDICES AS RULE OF THUMB CHECK OUT MCNEISH WORK
+# Dynamic Fit Indices
+# https://dynamicfit.app/connect/
+
 ```
 
 ### CFA Plots
@@ -711,6 +795,13 @@ print("look at : http://sachaepskamp.com/semPlot/examples#Lavaan")
 graph_sem(model = BFI5)
 
 print("need to customize look at : https://cjvanlissa.github.io/tidySEM/articles/Plotting_graphs.html#optional-step-3-customizing-the-layout-1")
+
+#from lavaanPlot
+#unstandardized
+lavaanPlot(model = BFI5, edge_options = list(color = "grey"), coefs = TRUE)
+
+#standardized
+lavaanPlot(model = BFI5a, edge_options = list(color = "grey"), coefs = TRUE))
 
 
 ```
@@ -776,14 +867,27 @@ graph_sem(model = BFI5Bifactorfit)
 
 print("need to customize look at : https://cjvanlissa.github.io/tidySEM/articles/Plotting_graphs.html#optional-step-3-customizing-the-layout-1")
 
+#from lavaanPlot
+#unstandardized
+lavaanPlot(model = BFI5Bifactorfit, edge_options = list(color = "grey"), coefs = TRUE)
+
+```
+
+#### Bifactor Indices calculator
+
+```{r Bifactor Indices Calculator}
+
+bifactorIndices(BFI5Bifactorfit, UniLambda = BFI1)
+
+print(" To understand those indices look at this paper ! Rodriguez A, Reise SP, Haviland MG. Evaluating bifactor models: Calculating and interpreting statistical indices. Psychol Methods. 2016 Jun;21(2):137-50. doi: 10.1037/met0000045. Epub 2015 Nov 2. PMID: 26523435.")
 ```
 
 ### Measurement Invariance
 
 Inspired from Sacha Epskamp :
-https://github.com/SachaEpskamp/SEM-code-examples/blob/master/Measurement_invariance_examples/lavaan/StarWars_lavaan.R
+<https://github.com/SachaEpskamp/SEM-code-examples/blob/master/Measurement_invariance_examples/lavaan/StarWars_lavaan.R>
 
-## Select data with group 
+## Select data with group
 
 ```{r Subset BFI3 with group Var}
 
@@ -801,6 +905,7 @@ fitMeasures(conf)
 ```
 
 # Test for weak invariance
+
 ```{r weak invar cfa5}
 weak <- cfa(cfa5, data = bfi3, group = "gender", group.equal = "loadings", std.lv=TRUE)
 
@@ -815,4 +920,3 @@ strong <- cfa(cfa5, data = bfi3, group = "gender",group.equal = c("loadings","in
 
 anova(conf,weak, strong)
 ```
-
