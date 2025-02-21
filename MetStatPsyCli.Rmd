@@ -179,7 +179,7 @@ library(semPlot)
 library(tidySEM)
 library(lavaanPlot)
 library(BifactorIndicesCalculator)
-
+library(tidyLPA)
 
 ```
 
@@ -328,23 +328,18 @@ bfi2cfa <- partitions$p_0.5
 #get rid of row_id
 
 bfi2efa <- subset(bfi2efa, select = 
-                    c("A1","A2","A3","A4","A5","C1","C2","C3","C4","C5",
+                    c("A1","A2","A3","A4","A5",
+                      "C1","C2","C3","C4","C5",
                       "E1","E2","E3","E4","E5",
                       "N1","N2","N3","N4","N5",
                       "O1","O2","O3","O4","O5"))
 
 bfi2cfa <- subset(bfi2cfa, select = 
-                    c("A1","A2","A3","A4","A5","C1","C2","C3","C4","C5",
+                    c("A1","A2","A3","A4","A5",
+                      "C1","C2","C3","C4","C5",
                       "E1","E2","E3","E4","E5",
                       "N1","N2","N3","N4","N5",
                       "O1","O2","O3","O4","O5"))
-
-<<<<<<< HEAD
-partitions <- data_partition(bfi2, proportion = 0.5, seed = 123)
-efa <- partitions$p_0.5
-cfa <- partitions$test
-=======
->>>>>>> 5928d8457348486df4d618764ca8d3befb3be457
 
 ```
 
@@ -711,7 +706,7 @@ WLS5 =~ A3 + A2 + A5 + A4 + A1
 WLS4 =~ O3 + O5 + O1 + O2 + O4'
 
 BFI5 <- cfa(cfa5, data = bfi2cfa, estimator = "WLSMV", 
-            ordered= TRUE)
+            ordered= TRUE, std.lv = TRUE)
 
 BFI5a <- cfa(cfa5a, data = bfi2cfa, estimator = "WLSMV", 
             ordered= TRUE, std.lv = TRUE)
@@ -766,13 +761,22 @@ print("go see Heywood case : https://quantitudepod.org/s3e15-heywood-cases/")
 
 ```{r CFA Fit compare, echo=FALSE}
 
-# Creer un tableau de synthèse avec le package semTable
+# Creer un tableau de synthèse avec le package semTable 
+# NB PACAKGE REMOVED FROM CRAN 
 
-models <- list("BFI1" = BFI1,"BFI2" = BFI2,"BFI3" = BFI3, "BFI4" = BFI4,"BFI5" = BFI5,"BFI5a" = BFI5a, "BFI5b" = BFI5b)
+# models <- list("BFI1" = BFI1,"BFI2" = BFI2,"BFI3" = BFI3, "BFI4" = BFI4,"BFI5" = BFI5,"BFI5a" = BFI5a, "BFI5b" = BFI5b)
+# 
+# ## Note, nesting is not specified, so built-in nesting detection applies
+# kbl(compareLavaan(models, fitmeas = c(
+#   "chisq", "df", "aic", "bic", "cfi", "tli", "rmsea","rmsea.ci.lower","rmsea.ci.upper", "srmr")))
 
-## Note, nesting is not specified, so built-in nesting detection applies
-kbl(compareLavaan(models, fitmeas = c(
-  "chisq", "df", "aic", "bic", "cfi", "tli", "rmsea","rmsea.ci.lower","rmsea.ci.upper", "srmr")))
+
+# Creer un tableau de synthèse avec le package semTools
+
+fitcomparison <- compareFit(BFI1, BFI2, BFI3, BFI4, BFI5, BFI5a, BFI5b,
+           indices = TRUE, moreIndices = TRUE, nested = TRUE)
+
+summary(fitcomparison)
 
 
 # BEWARE OF FIT INDICES AS RULE OF THUMB CHECK OUT MCNEISH WORK
@@ -789,6 +793,8 @@ kbl(compareLavaan(models, fitmeas = c(
 #from semPlot
 semPaths(BFI5, "std", edge.label.cex = 0.5, curvePivot = TRUE, layout = "tree2")
 
+semPaths(BFI5, "std", edge.label.cex = 0.5, curvePivot = TRUE, layout = "tree")
+
 print("look at : http://sachaepskamp.com/semPlot/examples#Lavaan")
 
 #from tidySEM
@@ -797,11 +803,11 @@ graph_sem(model = BFI5)
 print("need to customize look at : https://cjvanlissa.github.io/tidySEM/articles/Plotting_graphs.html#optional-step-3-customizing-the-layout-1")
 
 #from lavaanPlot
-#unstandardized
+# Classical
 lavaanPlot(model = BFI5, edge_options = list(color = "grey"), coefs = TRUE)
 
-#standardized
-lavaanPlot(model = BFI5a, edge_options = list(color = "grey"), coefs = TRUE))
+#cross laodings added
+lavaanPlot(model = BFI5a, edge_options = list(color = "grey"), coefs = TRUE)
 
 
 ```
@@ -868,7 +874,6 @@ graph_sem(model = BFI5Bifactorfit)
 print("need to customize look at : https://cjvanlissa.github.io/tidySEM/articles/Plotting_graphs.html#optional-step-3-customizing-the-layout-1")
 
 #from lavaanPlot
-#unstandardized
 lavaanPlot(model = BFI5Bifactorfit, edge_options = list(color = "grey"), coefs = TRUE)
 
 ```
@@ -882,12 +887,12 @@ bifactorIndices(BFI5Bifactorfit, UniLambda = BFI1)
 print(" To understand those indices look at this paper ! Rodriguez A, Reise SP, Haviland MG. Evaluating bifactor models: Calculating and interpreting statistical indices. Psychol Methods. 2016 Jun;21(2):137-50. doi: 10.1037/met0000045. Epub 2015 Nov 2. PMID: 26523435.")
 ```
 
-### Measurement Invariance
+## Measurement Invariance
 
 Inspired from Sacha Epskamp :
 <https://github.com/SachaEpskamp/SEM-code-examples/blob/master/Measurement_invariance_examples/lavaan/StarWars_lavaan.R>
 
-## Select data with group
+### Select data with group
 
 ```{r Subset BFI3 with group Var}
 
@@ -896,7 +901,7 @@ bfi3 <- subset(bfi, select = c("A1","A2","A3","A4","A5","C1","C2","C3","C4","C5"
                                "O1","O2","O3","O4","O5", "gender"))
 ```
 
-# Test for configural invariance 5 factor BFI
+### Test for configural invariance 5 factor BFI
 
 ```{r config invar cfa5}
 conf <- cfa(cfa5, data = bfi3, group = "gender", std.lv=TRUE)
@@ -904,7 +909,7 @@ conf <- cfa(cfa5, data = bfi3, group = "gender", std.lv=TRUE)
 fitMeasures(conf)
 ```
 
-# Test for weak invariance
+### Test for weak invariance
 
 ```{r weak invar cfa5}
 weak <- cfa(cfa5, data = bfi3, group = "gender", group.equal = "loadings", std.lv=TRUE)
@@ -913,10 +918,57 @@ anova(conf,weak)
 
 ```
 
-# Test for strong invariance
+### Test for strong invariance
 
 ```{r strong invar cfa5}
 strong <- cfa(cfa5, data = bfi3, group = "gender",group.equal = c("loadings","intercepts"), std.lv=TRUE)
 
 anova(conf,weak, strong)
 ```
+
+## Latent Profil Analysis on BFI
+
+### LPAs with 1 to 4 profiles
+
+```{r LPA BFI5}
+
+# Fit LPA models with 1 to 4 profiles
+lpa_models <- bfi2 %>%
+  estimate_profiles(1:4, 
+                    variances = "equal", 
+                    covariances = "zero")  # Common LPA assumption
+
+# Compare model fit
+compare_solutions(lpa_models)
+
+```
+
+### Extract Profile Membership
+
+```{r Extract Profile Membership}
+# If 4 profiles is the best model but we want to extract 2 profile for clarity
+best_model <- bfi2 %>%
+  estimate_profiles(2, 
+                    variances = "equal", 
+                    covariances = "zero")
+
+# Add profile assignments to data
+bfi_profiles <- get_data(best_model) %>%
+  rename(Profile = Class)
+
+# View first few rows
+head(bfi_profiles)
+
+```
+
+### Visualize Latent Profiles
+
+```{r Visualize Latent Profiles}
+
+# Line Plot of Profile Means
+
+plot_profiles(best_model, rawdata = FALSE, bw = FALSE, add_line = TRUE, sd = FALSE)  # Profile means
+
+
+```
+
