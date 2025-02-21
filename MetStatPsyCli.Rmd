@@ -221,8 +221,10 @@ view(dfSummary(bfi))
 
 ```{r subset data, echo=TRUE}
 
-bfi2 <- subset(bfi, select = c("A1","A2","A3","A4","A5","C1","C2","C3","C4","C5",
-                               "E1","E2","E3","E4","E5","N1","N2","N3","N4","N5",
+bfi2 <- subset(bfi, select = c("A1","A2","A3","A4","A5",
+                               "C1","C2","C3","C4","C5",
+                               "E1","E2","E3","E4","E5",
+                               "N1","N2","N3","N4","N5",
                                "O1","O2","O3","O4","O5"))
 ```
 
@@ -262,7 +264,7 @@ print(screeplot2)
 
 ```
 
-#### Parrallel Analysis
+#### Parallel Analysis
 
 Attention plutôt utiliser wls pour des données ordinales non normales
 (non normales = effet plancher / effet plafond, pas distribution de
@@ -446,7 +448,7 @@ print(efa5b)
 
 ### look all item above 0.1 loading per factor (cross-loadings)
 efa5b <- fa(bfi2efa, nfactors = 5,cor="cor",rotate="oblimin",fm="wls") %>% 
-  model_parameters(sort = TRUE, threshold = 0.1)
+  model_parameters(sort = TRUE, threshold = 0.01)
 
 print(efa5b)
 
@@ -563,7 +565,7 @@ kbl(standardizedSolution(BFI1, output = "pretty"))
 
 ## Ordering things from data order
 
-cfa1a <- 'WLS1 =~ A1 +  A2 +  A3 +  A4 +  A5 + C1 + C2 + C3 +  C4 + C5 + E1 + E2 + E3 + E4 + E5 + N1 + N2 + N3 + N4 + N5 + O1 + O2 + O3 + O4 + O5'
+cfa1a <- 'WLS1 =~ A1 +  A2 +  A3 +  A4 +  A5 + C1 + C2 + C3 + C4 + C5 + E1 + E2 + E3 + E4 + E5 + N1 + N2 + N3 + N4 + N5 + O1 + O2 + O3 + O4 + O5'
 
 BFI1a <- cfa(cfa1a, data = bfi2cfa, estimator = "WLSMV", 
             ordered= TRUE, std.lv = TRUE)
