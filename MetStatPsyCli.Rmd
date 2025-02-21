@@ -265,9 +265,9 @@ plot(agreement)
 ```{r EFA CFA Subsample, echo=FALSE}
 set.seed(123)
 
-partitions <- data_partition(bfi2, training_proportion = 0.5)
-bfi2efa <- partitions$training
-bfi2cfa <- partitions$test
+partitions <- data_partition(bfi2, proportion = 0.5, seed = 123)
+efa <- partitions$p_0.5
+cfa <- partitions$test
 
 ```
 
