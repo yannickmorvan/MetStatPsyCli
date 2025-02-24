@@ -230,17 +230,17 @@ bfi2 <- subset(bfi, select = c("A1","A2","A3","A4","A5",
 
 ## Analyse factorielle exploratoire (EFA)
 
-Test EFA from psych package NB fonction à vérifier car message erreur
-
-``` r
-factstruct <- check_factorstructure(bfi2) Erreur dans check_factorstructure(bfi2) : impossible de trouver la fonction "check_factorstructure"
-```
+### Possibile avec les data disponibles ?
 
 ```{r EFA test, echo=FALSE}
 
-#factstruct <- check_factorstructure(bfi2)
+factstruct <- performance::check_factorstructure(bfi2)
 
-#print(factstruct)
+print(factstruct)
+
+factstruct2 <- EFA.dimensions::FACTORABILITY(bfi2)
+
+print(factstruct2)
 
 ```
 
