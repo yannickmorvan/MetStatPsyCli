@@ -347,6 +347,12 @@ bfi2cfa <- subset(bfi2cfa, select =
 
 #### EFA 1 factor
 
+NB we will use the psych package and the fa function to perform the EFA
+Note that the package EFA.dimensions might be usefull to provide additional options.
+However the fa function from psych package provide easy visualisation of the results
+with sorting & threshold options.
+
+
 ##### look at only 1 item per factor
 
 ```{r EFA1F, echo=FALSE}
