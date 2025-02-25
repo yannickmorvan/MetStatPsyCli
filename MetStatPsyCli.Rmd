@@ -234,9 +234,13 @@ bfi2 <- subset(bfi, select = c("A1","A2","A3","A4","A5",
 
 ```{r EFA test, echo=FALSE}
 
+# check https://easystats.github.io/parameters/articles/efa_cfa.html
+
 factstruct <- performance::check_factorstructure(bfi2)
 
 print(factstruct)
+
+# with package EFA.dimensions
 
 factstruct2 <- EFA.dimensions::FACTORABILITY(bfi2)
 
